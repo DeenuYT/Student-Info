@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }}</title>
+    <style>
+        body {
+            padding: 0 30px 0 30px;
+            display: grid;
+            background-image: url('data/bg.jpg');
+            justify-content: center;
+        }
+
+        .ttl {
+            font-size: 30px;
+        }
+
+        .profile {
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile .details {
+            margin-left: 30px;
+            font-size: 30px;
+        }
+
+        th,
+        td {
+            font-size: 24px;
+            padding: 10px;
+            border: 2px blue solid;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: rgb(34, 34, 196);
+            color: white;
+        }
+
+        .co table {
+            display: grid;
+            align-content: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <hr>
+        <div class="ttl">
+            <p style="background-color: rgb(34, 34, 196); color: white; padding: 10px; border-radius: 10px;">WELCOME TO
+                KONGUNADU COLLEGE OF ENGINEERING AND TECHNOLOGY [AUTONOMOUS], TRICHY</p>
+            <p style="color: red; font-weight: 800;">DEPARTMENT OF ARTIFICIAL INTELLIGENCE AND
+                DATA SCIENCE</p>
+        </div>
+    </center>
+    <div class="profile"
+        style="box-sizing: border-box; box-shadow: 0 0 8px gray; padding: 20px 0; border-radius: 10px;">
+        <div class="photo">
+            <img src="{{ photo }}" alt="" width="256" height="276">
+        </div>
+        <div class="details">
+            <p><b>Name: </b>{{ name }}</p>
+            <p><b>Register Number: </b>{{ reg_no }}</p>
+            <p><b>10th: </b>{{ tenth }}%</p>
+            <p><b>12th: </b>{{ twelth }}%</p>
+        </div>
+    </div>
+    <center>
+        <h1><u>ACADEMIC PERFORMANCE ANALYSIS IN SEMESTER VI</u></h1>
+    </center>
+    <table>
+        <tr>
+            <th>Subject</th>
+            {% for sub in subjects %}
+            <th>{{ sub }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>IAT 1 MARKS</th>
+            {% for mark in marks %}
+            {% if mark|int < 50 and mark !='-' %} <td style="color: red;">{{ mark }}</td>
+                {% else %}
+                <td style="color: black;">{{ mark }}</td>
+                {% endif %}
+                {% endfor %}
+        </tr>
+        <tr>
+            <th>RESULT</th>
+            {% for mark in marks %}
+            {% if mark|int < 50 and mark !='-' %} <td style="color: red;">F</td>
+                {% else %}
+                <td style="color: black;">P</td>
+                {% endif %}
+                {% endfor %}
+        </tr>
+    </table>
+    <div style="display: flex;gap: 10px;margin: auto;">
+        <p style="font-size: 24px;border: 2px solid blue; padding: 10px; border-radius: 10px;"><b>FAILED: {{ failed_sub }}</b></p>
+        <p style="font-size: 24px;border: 2px solid blue; padding: 10px; border-radius: 10px;"><b>CLASS ATTENDENCE: {{ attendence }}%</b></p>
+    </div>
+    <center>
+        <h1><u>ACADEMIC PERFORMANCE IN UNIVERSITY EXAMINATION (SEMESTER VI)</u></h1>
+    </center>
+    <table>
+        <tr>
+            <th>Subject</th>
+            {% for sub in sem_subjects %}
+            <th>{{ sub }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>GRADE</th>
+            {% for grade in grades %}
+            {% if grade == 'U' %}
+            <td style="color: red;">{{ grade }}</td>
+            {% else %}
+            <td style="color: black;">{{ grade }}</td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>RESULT</th>
+            {% for grade in grades %}
+            {% if grade == 'U' %}
+            <td style="color: red;">Fail</td>
+            {% else %}
+            <td style="color: black;">Pass</td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+    </table>
+    <br>
+    <table>
+        <tr>
+            {% for sem in semesters %}
+            <th>{{ sem }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for gpa in gpas %}
+            <td>{{ gpa }}</td>
+            {% endfor %}
+        </tr>
+    </table>
+    <div style="display: flex;gap: 10px;margin: auto;">
+        <p style="font-size: 24px;border: 2px solid blue; padding: 10px; border-radius: 10px;"><b>RANK: {{ rank }}</b>
+        </p>
+        <p style="font-size: 24px;border: 2px solid blue; padding: 10px; border-radius: 10px;"><b>NUMBER OF ARREARS: {{
+                total_no_of_arrears }}</b></p>
+        {% if failed_sem_sub %}
+        <p style="font-size: 24px;border: 2px solid blue; padding: 10px; border-radius: 10px;"><b>ARREARS: 
+            {{ failed_sem_sub }}</b></p>
+        {% endif %}
+    </div>
+    <hr>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <div>
+            <center>
+                <h1><u>PLACEMENT OFFERS</u></h1>
+            </center>
+            <div class="co">
+                <table>
+                    <tr>
+                        <th style="padding: 10px 100px;">Name</th>
+                        <th style="padding: 10px 30px;">Salary</th>
+                    </tr>
+                    {% for p in placement %}
+                    <tr>
+                        <td>{{ p.name }}</td>
+                        <td>{{ p.salary }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <hr>
+        </div>
+        <div>
+            <center>
+                <h1><u>CO-CURRICULAR & EXTRA CURRICULAR ACTIVITIES</u></h1>
+            </center>
+            <div class="co">
+                <table>
+                    <tr>
+                        <th>No of Mini Project</th>
+                        <th>No of Paper Presented</th>
+                        <th>No of Workshop Attended</th>
+                        <th>IV</th>
+                        <th>VAC</th>
+                        <th>Number of Prizes Won</th>
+                    </tr>
+                    <tr>
+                        <td>{{ no_of_mini_project }}</td>
+                        <td>{{ no_of_paper_presented }}</td>
+                        <td>{{ no_of_workshop_attended }}</td>
+                        <td>{{ iv }}</td>
+                        <td>{{ vac }}</td>
+                        <td>{{ prizes_won }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
